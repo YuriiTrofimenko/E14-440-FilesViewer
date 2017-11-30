@@ -6,9 +6,10 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.itstep.mariupol.adce440datafilesgraph.view.RootLayoutController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="org.itstep.mariupol.adce440datafilesgraph.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -20,6 +21,11 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                <items>
+                   <MenuItem mnemonicParsing="false">
+                       <graphic>
+                           <CheckBox fx:id="filterCheckBox" mnemonicParsing="false" onAction="#handleFilter" text="Filter"></CheckBox>
+                       </graphic>
+                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Delete" />
                </items>
             </Menu>

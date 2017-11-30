@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.itstep.mariupol.adce440datafilesgraph.MainApp;
 import org.itstep.mariupol.adce440datafilesgraph.model.Channel;
+import org.itstep.mariupol.adce440datafilesgraph.util.Filters;
 
 public class RootLayoutController implements Initializable {
 
@@ -51,7 +52,7 @@ public class RootLayoutController implements Initializable {
     
     private MainApp mMainApp;
     
-    private ArrayList<Channel> mChannelsArrayList;
+    public static ArrayList<Channel> mChannelsArrayList;
     
     private ArrayList<String> pathFilesArrayList;
     
@@ -96,7 +97,7 @@ public class RootLayoutController implements Initializable {
         lineChartContent.setStyle(style);
     }
     
-        public void printAction(ActionEvent actionEvent){
+    public void printAction(ActionEvent actionEvent){
         Node toPrint=(Node)mGraphOverviewController.getLineChart();
         if(!print(toPrint))
         {
@@ -106,7 +107,13 @@ public class RootLayoutController implements Initializable {
             a.setContentText("Произошла ошибка во время печати. Убедитесь, что принтер исправен и включен.");
             a.showAndWait();
         }
-        
+    }
+    
+    @FXML
+    private void handleFilter(){
+    
+        Filters.doFilter(mChannelsArrayList);
+        mGraphOverviewController.showGraph(null, true);
     }
     
     private boolean print(Node node){
@@ -139,7 +146,7 @@ public class RootLayoutController implements Initializable {
 //        graphOverviewController.showGraph(filePathString);
         //MainApp.startGraphShow(filePathString);
         mGraphOverviewController.setPathFilesArrayList(pathFilesArrayList);
-        mGraphOverviewController.showGraph(filePathString);
+        mGraphOverviewController.showGraph(filePathString, false);
     }
     
     /**

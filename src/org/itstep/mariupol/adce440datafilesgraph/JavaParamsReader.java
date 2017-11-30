@@ -25,7 +25,9 @@ public class JavaParamsReader {
         for (int i_channel = 1; i_channel <= channelsQuantity; i_channel++) {
             Channel currentChannel = new Channel(
                     paramsArray[i_channel],
-                    paramsArray[i_channel + 33]);
+                    paramsArray[i_channel + 33],
+                    paramsArray[65]
+            );
             mChannelsArrayList.add(currentChannel);
         }
 

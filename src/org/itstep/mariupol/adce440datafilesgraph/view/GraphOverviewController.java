@@ -46,6 +46,8 @@ public class GraphOverviewController implements Initializable {
     private ArrayList<Series> mSeriesList;
     private ArrayList<Button> buttons;
     
+    ObservableList<XYChart.Data> mChannelObservableList;
+    
     private MainApp mMainApp;
     
     private Stage mPrimaryStage;
@@ -111,17 +113,22 @@ public class GraphOverviewController implements Initializable {
     
     boolean flag = true;
     
-    public void showGraph(String filePathSring) {
+    public void showGraph(String filePathSring, boolean filter) {
         
         if(!flag)
         {
-            mChannelsArrayList.clear();
+            if (!filter) {
+                mChannelsArrayList.clear();
+            }
             mSeriesList.clear();
             gridpane.getChildren().clear();
             mChannelLineChart.getData().clear();
         }
         flag=false;
-        mChannelsArrayList = MainApp.getChannelsData(filePathSring);
+        if (!filter) {
+            mChannelsArrayList = MainApp.getChannelsData(filePathSring);
+        }
+        
         if(buttons.size()<pathFilesArrayList.size())
         {
             addButton();
@@ -133,12 +140,12 @@ public class GraphOverviewController implements Initializable {
             Series currentSeries = mSeriesList.get(currentSeriesIdx);
             Integer currentSeriesNameInteger = currentSeriesIdx + 1;
             currentSeries.setName(currentSeriesNameInteger.toString());
-            ObservableList<XYChart.Data> channelObservableList =
+            mChannelObservableList =
                     FXCollections.observableArrayList();
             for(int i_channelDataItem = 0; i_channelDataItem < channel.size() - 1; i_channelDataItem++) {
-                channelObservableList.add(new XYChart.Data(i_channelDataItem, channel.getDataItem(i_channelDataItem)));
+                mChannelObservableList.add(new XYChart.Data(i_channelDataItem, channel.getDataItem(i_channelDataItem)));
             }
-            currentSeries.setData(channelObservableList);
+            currentSeries.setData(mChannelObservableList);
             mChannelLineChart.getData().add(currentSeries);
             currentSeries.getNode().setVisible(false);
             currentSeriesIdx++;
@@ -170,7 +177,7 @@ public class GraphOverviewController implements Initializable {
         int count = 0;
         for (String path : pathFilesArrayList) {
             if (buttonIdx.equals((count+1)+"")) {
-                showGraph(path);
+                showGraph(path, false);
                 System.out.println("test");
 //                mMainApp.setFilePathString(path);
 //                try {

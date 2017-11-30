@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.itstep.mariupol.adce440datafilesgraph.model.Channel;
+import org.itstep.mariupol.adce440datafilesgraph.util.Filters;
 import org.itstep.mariupol.adce440datafilesgraph.view.GraphOverviewController;
 import org.itstep.mariupol.adce440datafilesgraph.view.RootLayoutController;
 
@@ -88,7 +89,7 @@ public class MainApp extends Application {
             DataReader dataReader = new DataReader();
             dataReader.getData(mFilePathString, mChannelsArrayList);
         }
-        
+        RootLayoutController.mChannelsArrayList = mChannelsArrayList;
         return mChannelsArrayList;
     }
     
